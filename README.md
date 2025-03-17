@@ -82,7 +82,7 @@ Change the directory to the desired location for your project:
 
 Create a new virtual environment using the venv module:
 
-`python3.10 -m venv myenv`
+`python3.10 -m venv venv`
 
 
 Activate the virtual environment:

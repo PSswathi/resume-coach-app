@@ -1,6 +1,6 @@
 JD_PATH = "../jd_data/*"
 RESUME_PATH = "../resume_data/*/*"
-OPENAI_API_KEY = "API_KEY"
+OPENAI_API_KEY = "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"
 EMBEDDING_MODEL_NAME = "text-embedding-3-large"
 OUTPUT_PATH = "./output/"
 
