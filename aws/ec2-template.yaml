@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Provision EC2 instance for Dockerized Resume Coach app
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources:
+  ResumeCoachSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and Streamlit port 8501
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8501
+          ToPort: 8501
+          CidrIp: 0.0.0.0/0
+
+  ResumeCoachInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-0e449927258d45bc4  # Amazon Linux 2023 (us-east-1)
+      SecurityGroupIds:
+        - !Ref ResumeCoachSecurityGroup
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          amazon-linux-extras enable docker
+          yum install -y docker
+          service docker start
+          usermod -aG docker ec2-user
+          curl -L "https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+
+Outputs:
+  InstancePublicIP:
+    Description: Public IP of the Resume Coach EC2 instance
+    Value: !GetAtt ResumeCoachInstance.PublicIp
+  WebAppURL:
+    Description: Access your Resume Coach app at
+    Value: !Sub http://${ResumeCoachInstance.PublicIp}:8501
+

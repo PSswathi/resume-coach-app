@@ -1,0 +1,13 @@
+services:
+  resume-coach:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: resume-coach-app
+    container_name: resume-coach-app
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    restart: unless-stopped

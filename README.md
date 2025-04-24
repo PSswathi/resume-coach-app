@@ -178,5 +178,83 @@ For Poppler
 
 
 
+## End-to-End Deployment: Local Docker → EC2 via CloudFormation
 
+This guide walks you through deploying the Resume Coach app to AWS EC2 by:
+1.	Building the Docker image locally
+2.	Creating infrastructure on AWS using CloudFormation
+3.	Copying the image to EC2 and running the container
+4.	Accessing the app via browser
 
+#### Prerequisites
+-	Docker and Docker Compose installed
+-	AWS CLI configured (aws configure)
+-	An existing EC2 Key Pair (.pem file) and key name in AWS (e.g., my-key)
+-	Executable permissions on the shell scripts:
+
+```bash
+chmod +x aws/*.sh
+```
+
+### Step 1: Provision AWS Infrastructure (EC2)
+
+Launch an EC2 instance using a CloudFormation template
+
+This will:
+- Create a Security Group (with ports 22 and 8501 open)
+- Launch a t2.micro Amazon Linux 2023 EC2 instance
+- Preinstall Docker and Docker Compose
+
+```bash
+./aws/launch-ec2.sh
+```
+
+After the stack is created, the script will display the public IP and app URL
+
+✏️ **IMPORTANT:**
+1.	Copy the EC2 public IP from the output or CloudFormation Console
+2.	Open the ./aws/deploy-to-ec2.sh script and update:
+
+```angular2html
+EC2_IP="your-ec2-public-ip"
+```
+3.	Also update the path to your .pem key file:
+
+```bash
+PEM_FILE="/absolute/path/to/my-key.pem"
+```
+
+### Step 2: Build Docker Image Locally
+
+Build the Docker image on your machine using Docker Compose. This creates an image named resume-coach-app
+
+```bash
+docker-compose build
+```
+
+OR directly run the app locally (optional):
+
+```bash
+docker-compose up --build
+```
+
+### Step 3: Deploy Image to EC2 and Start Container
+
+Copy the locally built Docker image to the EC2 instance and run the container remotely
+
+This script will:
+- Use scp to copy the .tar image to EC2
+- Use ssh to load the image and run the container
+- Expose the app on port 8501
+
+```bash
+./aws/deploy-to-ec2.sh
+```
+
+After execution, the Resume Coach app will be live at:
+
+```
+http://<your-ec2-public-ip>:8501
+```
+
+You can now access the app in your browser with http://54.152.202.166:8501
