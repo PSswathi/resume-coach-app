@@ -245,6 +245,8 @@ Build the Docker image on your machine using Docker Compose. This creates an ima
 docker-compose build
 ```
 
+
+
 OR directly run the app locally (optional):
 
 ```bash
@@ -270,4 +272,4 @@ After execution, the Resume Coach app will be live at:
 http://<your-ec2-public-ip>:8501
 ```
 
-You can now access the app in your browser with http://54.152.202.166:8501
+You can now access the app in your browser with http://3.84.99.83:8501
