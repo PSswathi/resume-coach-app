@@ -148,7 +148,7 @@ if prompt := st.chat_input():
         st.write(prompt)
 
 
-def get_llm_response():
+def get_llm_response(prompt):
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             response = generate_response(prompt + SYSTEM_PROMPT)
@@ -167,7 +167,7 @@ def get_llm_response():
 
 # Generate a new response if last message is not from assistant
 if st.session_state.messages[-1]["role"] not in ["assistant", "feedback"]:
-    get_llm_response()
+    get_llm_response(prompt)
 
 if st.session_state.messages[-1]["role"] in ["feedback"]:
     try:
@@ -180,6 +180,6 @@ if st.session_state.messages[-1]["role"] in ["feedback"]:
             feedback = st.session_state.messages[-1]["content"]['text']
             prompt = "Please respond according to feedback '{0}' on the previous response on \n".format(feedback) \
                      + st.session_state.messages[-3]["content"]
-            get_llm_response()
+            get_llm_response(prompt)
     except:
         pass

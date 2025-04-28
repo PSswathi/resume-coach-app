@@ -30,8 +30,16 @@ pip install -r requirements.txt
 ```
 
 ### Run app
+For the app without RAG implementation,
+
 ```
-streamlit run resume_coach.py
+streamlit run resume_suggestions.py
+```
+
+For the app with RAG implementation,
+
+```
+streamlit run resume_suggestions_rag.py
 ```
 
 ## Installation
@@ -155,6 +163,11 @@ Add OpenAI API Key in Constants
 `
 streamlit run src/resume_suggestions.py
 `
+or 
+`
+streamlit run src/resume_suggestions_rag.py
+`
+
 
 This will start a local web server and open the application in your default web browser.
 

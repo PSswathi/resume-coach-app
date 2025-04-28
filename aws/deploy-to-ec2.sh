@@ -2,7 +2,7 @@
 
 PEM_FILE=~/keys/my-key.pem
 IMAGE_TAR=./aws/resume-coach-app.tar
-EC2_IP="<ec2-ip>"
+EC2_IP="54.152.202.166"
 
 echo "Save the Image to a .tar File"
 docker save resume-coach-app:latest -o $IMAGE_TAR

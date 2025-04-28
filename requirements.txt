@@ -13,3 +13,5 @@ streamlit-feedback==0.1.3
 tiktoken==0.7.0
 tqdm
 langchain-openai
+faiss-cpu
+openai
