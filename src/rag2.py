@@ -1,3 +1,7 @@
+### Full Name : Swathi Subramanyam Pabbathi
+### Email - Id : swanpsswathi@gmail.com
+### Problem Statement : Project-5: Resume Coach - AI-Powered Job Application Coach using RAG implementation
+
 import os
 import tempfile
 import numpy as np

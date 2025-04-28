@@ -1,3 +1,7 @@
+### Full Name : Swathi Subramanyam Pabbathi
+### Email - Id : swanpsswathi@gmail.com
+### Problem Statement : Project-5: Resume Coach - AI-Powered Job Application Coach
+
 import os
 import streamlit as st
 from streamlit_feedback import streamlit_feedback
