@@ -8,7 +8,6 @@ from directory_reader import DirectoryReader
 from embedding_model import EmbeddingModel
 
 
-
 def create_embeddings():
     """
     Reads job descriptions (JDs) and resumes, generates embeddings for each, and saves the embeddings to disk.
@@ -60,6 +59,7 @@ def get_similarity_dict(jd_embeddings, resume_embeddings):
         dict: A dictionary where keys are resume names and values are dictionaries with job description names and their similarity scores.
     """
     resume_jd_combi_to_match = {"data_engineer": "de", "data_analyst": "dataanalyst",
+                                "big_data_analyst": "bigdataanalyst",
                                 "mlops_engineer": "mlops", "data_scientist": "ds", "data_architect": "da",
                                 "machine_learning_engineer": "mle", "business_intelligence_analyst": "bianalyst"}
 
@@ -114,4 +114,4 @@ match_df = pd.DataFrame(output, columns=["resume_name", "jd_name", "matching_sco
 match_df.head(100)
 
 
-get_top_matching_job("data_analyst_resume_14")
+get_top_matching_job("big_data_analyst_resume_1")
